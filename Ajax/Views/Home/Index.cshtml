@@ -2,29 +2,33 @@
     ViewBag.Title = "Home Page";
 }
 @section scripts{
-<script src="~/Scripts/plugins/mustache.min.js"></script>
-<script src="~/Scripts/controllers/homeController.js"></script>
-    }
 
-<table class="table">
+  <script src="~/Scripts/plugins/mustache.min.js"></script>
+<script src="~/Scripts/plugins/jquery.twbsPagination.min.js"></script>
+  <script src="~/Scripts/controllers/homeController.js"></script>
+
+}
+<div class="row">
+  <table class="table">
     <thead>
-        <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Salary</td>
-            <td>Status</td>
-        </tr>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Salary</td>
+        <td>Status</td>
+      </tr>
     </thead>
-    <tbody id="tblData">
+    <tbody id="tblData"></tbody>
+  </table>
+  <div id="pagination" class="pagination">
+  </div>
 
-    </tbody>
-</table>
-
-<script id="data-template" type="x-tmpl-mustache">
+  <script id="data-template" type="x-tmpl-mustache">
     <tr>
-        <td>{{Id}}</td>
-        <td>{{Name}}</td>
-        <td><input type="number" class="txtSalary" data-id="{{Id}}" value="{{Salary}}"/></td>
-        <td>{{{Status}}}</td>
+      <td>{{ID}}</td>
+      <td>{{Name}}</td>
+      <td><input type="number" class="txtSalary" data-id="{{ID}}" value="{{Salary}}" /></td>
+      <td>{{{Status}}}</td>
     </tr>
-</script>
+  </script>
+</div>

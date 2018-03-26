@@ -4,78 +4,68 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
-namespace Ajax.Controllers
+namespace AJAXTable.Controllers
 {
     public class HomeController : Controller
     {
         List<EmployeeModel> listEmployee = new List<EmployeeModel>() {
             new EmployeeModel()
-        {
-                Id = 1,
+            {
+                ID = 1,
                 Name = "Nguyen Van A",
-                Salary = 1000,
-                Status = false,
+                Salary = 2000000,
+                Status = true
             },
             new EmployeeModel()
-        {
-                Id = 2,
+            {
+                ID = 2,
                 Name = "Nguyen Van B",
-                Salary = 20800,
-                Status = true,
+                Salary = 3000000,
+                Status = true
             },
             new EmployeeModel()
-        {
-                Id = 3,
-                Name = "Nguyen Van c",
-                Salary = 306400,
-                Status = true,
+            {
+                ID = 3,
+                Name = "Nguyen Van C",
+                Salary = 5000000,
+                Status = true
             },
-                        new EmployeeModel()
-        {
-                Id = 4,
+              new EmployeeModel()
+            {
+                ID = 4,
                 Name = "Nguyen Van D",
-                Salary = 305500,
-                Status = true,
+                Salary = 42342,
+                Status = true
             },
-            new EmployeeModel()
-        {
-                Id = 5,
-                Name = "Nguyen Van E",
-                Salary = 30300,
-                Status = true,
+                new EmployeeModel()
+            {
+                ID = 5,
+                Name = "Nguyen Van EC",
+                Salary = 54342,
+                Status = true
             },
-            new EmployeeModel()
-        {
-                Id = 6,
+                  new EmployeeModel()
+            {
+                ID = 6,
                 Name = "Nguyen Van F",
-                Salary = 30700,
-                Status = true,
+                Salary = 504300,
+                Status = true
             },
-            new EmployeeModel()
-        {
-                Id = 7,
+                    new EmployeeModel()
+            {
+                ID = 7,
                 Name = "Nguyen Van G",
-                Salary = 36000,
-                Status = true,
+                Salary = 5300,
+                Status = true
             },
-            new EmployeeModel()
-        {
-                Id = 8,
-                Name = "Nguyen Van c",
-                Salary = 35000,
-                Status = true,
+                      new EmployeeModel()
+            {
+                ID = 8,
+                Name = "Nguyen Van H",
+                Salary = 6535232,
+                Status = true
             },
-            new EmployeeModel()
-        {
-                Id = 9,
-                Name = "Nguyen Van c",
-                Salary = 30400,
-                Status = true,
-            },
-
-
-
-    };
+        };
 
         public ActionResult Index()
         {
@@ -83,27 +73,29 @@ namespace Ajax.Controllers
         }
 
         [HttpGet]
-        public JsonResult LoadData()
+        public JsonResult LoadData(int page, int pageSize = 3)
         {
+            var model = listEmployee.Skip((page - 1) * pageSize).Take(pageSize);
+            int totalRow = listEmployee.Count;
             return Json(new
             {
-                data = listEmployee,
-                status = true,
+                data = model,
+                total = totalRow,
+                status = true
             }, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public JsonResult Update(string model)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             EmployeeModel employee = serializer.Deserialize<EmployeeModel>(model);
-            //save dtbase
-            var entity = listEmployee.Single(x => x.Id == employee.Id);
+
+            //save db
+            var entity = listEmployee.Single(x => x.ID == employee.ID);
             entity.Salary = employee.Salary;
             return Json(new
-
             {
-                status = true,
+                status = true
             });
         }
     }

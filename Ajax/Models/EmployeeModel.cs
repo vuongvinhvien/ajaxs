@@ -7,7 +7,7 @@ namespace Ajax.Models
 {
     public class EmployeeModel
     {
-        public int Id { set; get; }
+        public int ID { set; get; }
         public string Name { set; get; }
         public double Salary { set; get; }
         public bool Status { set; get; }
