@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ajax", "Ajax\Ajax.csproj", "{CF32BC94-3CED-42DF-AD7F-C5DF7909BB75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxTable.Data", "AjaxTable.Data\AjaxTable.Data.csproj", "{07404F6E-1C80-4B1E-B209-1F658509377E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CF32BC94-3CED-42DF-AD7F-C5DF7909BB75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF32BC94-3CED-42DF-AD7F-C5DF7909BB75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF32BC94-3CED-42DF-AD7F-C5DF7909BB75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07404F6E-1C80-4B1E-B209-1F658509377E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07404F6E-1C80-4B1E-B209-1F658509377E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07404F6E-1C80-4B1E-B209-1F658509377E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07404F6E-1C80-4B1E-B209-1F658509377E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
