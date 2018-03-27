@@ -9,12 +9,10 @@ namespace AJAXTable.Controllers
     public class HomeController : Controller
     {
         private EmployeeDbContext _context;
-
         public HomeController()
         {
             _context = new EmployeeDbContext();
         }
-
         public ActionResult Index()
         {
             return View();
@@ -23,11 +21,12 @@ namespace AJAXTable.Controllers
         [HttpGet]
         public JsonResult LoadData(int page, int pageSize = 3)
         {
-            var model = _context.Employee
-                .OrderByDescending(x=>x.CreatedDate)
+            var model = _context.Employees
+                .OrderBy(x => x.ID) // sx theo thu tu tang
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize);
-            int totalRow = _context.Employee.Count();
+
+            int totalRow = _context.Employees.Count();
             return Json(new
             {
                 data = model,
@@ -35,7 +34,6 @@ namespace AJAXTable.Controllers
                 status = true
             }, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public JsonResult Update(string model)
         {
@@ -43,7 +41,7 @@ namespace AJAXTable.Controllers
             Employee employee = serializer.Deserialize<Employee>(model);
 
             //save db
-            var entity = _context.Employee.Find(employee.ID);
+            var entity = _context.Employees.Find(employee.ID);
             entity.Salary = employee.Salary;
             return Json(new
             {

@@ -9,7 +9,7 @@ namespace AjaxTable.Data
         {
 
         }
-        public DbSet<Employee> Employee { set; get; }
+        public DbSet<Employee> Employees { set; get; }
 
     }
 }

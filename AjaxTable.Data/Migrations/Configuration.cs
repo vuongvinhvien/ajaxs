@@ -20,7 +20,7 @@ namespace AjaxTable.Data.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //
-            context.Employee.AddOrUpdate(
+            context.Employees.AddOrUpdate(
               //p => p.FullName,
               new Employee { Name = "Drop Andrew", Salary= 1234, CreatedDate= DateTime.Now, Status=true },
               new Employee { Name = "Brice Lambson", Salary = 4343, CreatedDate = DateTime.Now, Status = true },
