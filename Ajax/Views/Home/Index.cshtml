@@ -22,6 +22,7 @@
                     <td>Name</td>
                     <td>Salary</td>
                     <td>Status</td>
+                    <td>#</td>
                 </tr>
             </thead>
             <tbody id="tblData"></tbody>
@@ -33,8 +34,12 @@
             <tr>
                 <td>{{ID}}</td>
                 <td>{{Name}}</td>
-                <td><input type="number" class="txtSalary" data-id="{{ID}}" value="{{Salary}}" /></td>
+                <td><input type="number" class="t xtSalary" data-id="{{ID}}" value="{{Salary}}" /></td>
                 <td>{{{Status}}}</td>
+                <td>
+                    <button class="btn btn-primary btn-edit" data-id="{{ID}}">Edit</button>
+                    <button class="btn btn-danger" data-id="{{ID}}">Delete</button>
+                </td>
             </tr>
         </script>
     </div>

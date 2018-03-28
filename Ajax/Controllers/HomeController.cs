@@ -37,7 +37,18 @@ namespace AJAXTable.Controllers
                 status = true
             }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult GetDetail(int id)
+        {
+            var employee = _context.Employees.Find(id);
 
+
+            return Json(new
+            {
+                data = employee,
+                status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public JsonResult SaveData(string strEmployee)
         {

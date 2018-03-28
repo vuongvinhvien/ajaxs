@@ -1,5 +1,5 @@
 ﻿var homeconfig = {
-    pageSize: 5,
+    pageSize: 20,
     pageIndex: 1,
 }
 var homeController = {
@@ -21,8 +21,40 @@ var homeController = {
             homeController.resetForm();
         });
         $('#btnSave').off('click').on('click', function () {
-            $('#modalAddUpdate').modal('show');
+            //$('#modalAddUpdate').modal('show');
             homeController.saveData();
+        });
+
+        $('.btn-edit').off('click').on('click', function () {
+            $('#modalAddUpdate').modal('show');
+            var id = $(this).data('id');
+            homeController.loadDetail(id);
+        });
+        
+    },
+    loadDetail:function(id){
+        $.ajax({
+            url: '/Home/GetDetail',
+            data: {
+                id: id
+            },
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status == true) {
+                    var data = response.data;
+                    $('#hidID').val(data.ID);
+                    $('#txtName').val(data.Name);
+                    $('#txtSalary').val(data.Salary);
+                    $('#ckStatus').prop('checked', data.Status);
+                }
+                else {
+                    alert(response.message);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
         });
     },
     saveData: function () {
@@ -44,13 +76,13 @@ var homeController = {
             type: 'POST',
             dataType: 'json',
             success: function (response) {
-                if (status == true) {
+                if (response.status == true) {
                     alert('Save success');
                     $('#modalAddUpdate').modal('hide');
                     homeController.loadData();
                 }
                 else {
-                    alert(response.Message);
+                    alert(response.message);
                 }
             },
             error: function (err) {
@@ -61,9 +93,10 @@ var homeController = {
     resetForm: function () {
         $('#hidID').val('0');
         $('#txtName').val('');
-        $('txtSalary').val(0);
+        $('#txtSalary').val(0);
         $('#ckStatus').prop('checked', true);
     },
+    //update salary test
     updateSalary: function (id, value) {
         var data = {
             ID: id,
@@ -82,7 +115,7 @@ var homeController = {
                     alert('Update failed.');
                 }
             }
-        })
+        });
     },
     loadData: function () {
         $.ajax({
