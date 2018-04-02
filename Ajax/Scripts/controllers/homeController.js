@@ -1,5 +1,5 @@
 ﻿var homeconfig = {
-    pageSize: 20,
+    pageSize: 5,
     pageIndex: 1,
 }
 var homeController = {
@@ -15,6 +15,11 @@ var homeController = {
                 homeController.updateSalary(id, value);
             }
         });
+        $('#txtNameS').off('keypress').on('keypress', function (e) {
+            if (e.which == 13) {
+                homeController.loadData(true);
+            }
+        });
         $('#btnAddNew').off('click').on('click', function () {
             $('#modalAddUpdate').modal('show');
             homeController.resetForm();
@@ -23,7 +28,15 @@ var homeController = {
             //$('#modalAddUpdate').modal('show');
             homeController.saveData();
         });
-
+        //search
+        $('#btnSearch').off('click').on('click', function () {
+            homeController.loadData(true);
+        });
+        $('#btnReset').off('click').on('click', function () {
+            $('#txtNameS').val('');
+            $('ddlStatusS').val('');
+            homeController.loadData(true);
+        });
         $('.btn-edit').off('click').on('click', function () {
             $('#modalAddUpdate').modal('show');
             var id = $(this).data('id');
@@ -48,7 +61,7 @@ var homeController = {
             success: function (response) {
                 if (response.status == true) {
                     bootbox.alert("Delete Succes", function () {
-                        homeController.loadData();
+                        homeController.loadData(true);
                     })
                 }
                 else {
@@ -107,7 +120,7 @@ var homeController = {
                 if (response.status == true) {
                     bootbox.alert("Save Succes", function () {
                         $('#modalAddUpdate').modal('hide');
-                        homeController.loadData();
+                        homeController.loadData(true);
                     })
                 }
                 else {
@@ -146,11 +159,17 @@ var homeController = {
             }
         });
     },
-    loadData: function () {
+    loadData: function (changePageSize) {
+        var name = $('#txtNameS').val();
+        var status = $('#ddlStatusS').val();
+
         $.ajax({
+
             url: '/Home/LoadData',
             type: 'GET',
             data: {
+                name: name,
+                status:status,
                 page: homeconfig.pageIndex,
                 pageSize: homeconfig.pageSize
             },
@@ -171,14 +190,22 @@ var homeController = {
                     $('#tblData').html(html);
                     homeController.paging(response.total, function () {
                         homeController.loadData();
-                    });
+                    }, changePageSize);
                     homeController.registerEvent();
                 }
             }
         })
     },
-    paging: function (totalRow, callback) {
+    paging: function (totalRow, callback, changePageSize) {
         var totalPage = Math.ceil(totalRow / homeconfig.pageSize);
+
+        //Unbind pagination if it existed or click change pagesize
+        if ($('#pagination a').length === 0||changePageSize === true ) {
+            $('#pagination').empty();
+            $('#pagination').removeData("twbs-pagination");
+            $('#pagination').unbind("page");
+        }
+
         $('#pagination').twbsPagination({
             totalPages: totalPage,
             first: "Đầu",

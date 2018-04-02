@@ -22,10 +22,20 @@ namespace AJAXTable.Controllers
         }
 
         [HttpGet]
-        public JsonResult LoadData(int page, int pageSize = 3)
+        public JsonResult LoadData(string name, string status, int page, int pageSize = 3)
         {
-            var model = _context.Employees
-                .OrderBy(x => x.ID) // sx theo thu tu tang
+
+            IQueryable<Employee> model = _context.Employees;
+            if (!string.IsNullOrEmpty(name))
+                model = model.Where(x => x.Name.Contains(name));
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                var statusBool = bool.Parse(status);
+                model = model.Where(x => x.Status == statusBool);
+
+            }
+            model=model.OrderByDescending(x => x.ID) // sx theo thu tu tang
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize);
 
